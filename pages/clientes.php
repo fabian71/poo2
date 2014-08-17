@@ -4,7 +4,7 @@
 $conexao = new FABIANO\Conexao\Conexao();
 
 /* Selecionando os clientes */
-$sql = "select * from clientes";
+$sql = "select * from {$conexao->tabela}";
 $stmt = $conexao->prepare($sql);
 $stmt->execute();
 
