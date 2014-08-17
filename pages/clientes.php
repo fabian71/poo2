@@ -1,88 +1,26 @@
 <?php
 
-$clienteArray[] = [
-            'id'=> 1,
-            'email'=>'email@email.com',
-            'telefone'=>'4492828222',
-            'tipo'=>'pf',
-            'nome'=>'Fabiano',
-            'cpf'=>'7632832632',
-            'rg'=>'32987328237',
-            'stars'=> 4,
-            'endereco' => ['#cb# 1 Avenida Brasil, 454, terreo, Maringá PR',
-                           '1 Avenida Paulista, 22, , São Paulo SP']
-            ];
+/* Conexao com o banco de dados */
+$conexao = new FABIANO\Conexao\Conexao();
 
+/* Selecionando os clientes */
+$sql = "select * from clientes";
+$stmt = $conexao->prepare($sql);
+$stmt->execute();
 
-$clienteArray[] = [
-            'id'=> 2,
-            'email'=>'email2@email.com',
-            'telefone'=>'6692828222',
-            'tipo'=>'pj',
-            'nomeFantasia'=>'Comercio Teste',
-            'razaoSocial'=>'Comercio Ltda',
-            'cnpj'=>'3763282683232',
-            'stars'=> 3,
-            'endereco' => ['#cb# 2 rua teste, 221, terreo, Curitiba PR']
-            ];   
-
-$clienteArray[] = [
-            'id'=> 3,
-            'email'=>'email3@email.com',
-            'telefone'=>'9923828222',
-            'tipo'=>'pf',
-            'nome'=>'Luiz Padilha',
-            'cpf'=>'9692832638',
-            'rg'=>'31987329231',
-            'stars'=> 2,
-            'endereco' => ['3 Avenida São Paulo, 22, Curitiba PR',
-                           '#cb# 3 Avenida Brigadeiro faria lima,0001, , São Paulo SP']
-            ];     
-
-
-$clienteArray[] = [
-            'id'=> 4,
-            'email'=>'email4@email.com',
-            'telefone'=>'0092828233',
-            'tipo'=>'pj',
-            'nomeFantasia'=>'Comercio Teste 2',
-            'razaoSocial'=>'Comercio 2 Ltda',
-            'cnpj'=>'9963252683237',
-            'stars'=> 3,
-            'endereco' => ['#cb# rua xpto, 000, ap 44, Curitiba PR']
-            ]; 
-
-$clienteArray[] = [
-            'id'=> 5,
-            'email'=>'email5@email.com',
-            'telefone'=>'0782828923',
-            'tipo'=>'pj',
-            'nomeFantasia'=>'Xttp 332',
-            'razaoSocial'=>'Comercio Xpto 9 Ltda',
-            'cnpj'=>'6363252683242',
-            'stars'=> 3,
-            'endereco' => ['#cb# rua xpto, 83343, Rio de janeiro RJ']
-            ]; 
-
-$clienteArray[] = [
-            'id'=> 5,
-            'email'=>'email6@email.com',
-            'telefone'=>'11782828923',
-            'tipo'=>'pj',
-            'nomeFantasia'=>'Xttoo 213',
-            'razaoSocial'=>'Comercio Xpto 11 Ltda',
-            'cnpj'=>'3363252222683242',
-            'stars'=> 3,
-            'endereco' => ['#cb# rua teste, 12, Campinas SP']
-            ]; 
+/* Passando os clientes para o array */
+$clienteArray = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 foreach ($clienteArray as $cadaCliente) {
+
+    $cadaCliente['endereco'] = unserialize ($cadaCliente['endereco']);
 
     if($cadaCliente['tipo'] == 'pf'){
 
       $cliente = new FABIANO\Cliente\Tipos\TypePessoaFisica();
       $cliente->setStars($cadaCliente['stars'])
-              ->setId($cadaCliente['id'])
+              ->setId($cadaCliente['ID'])
+              ->setTelefone($cadaCliente['telefone'])
               ->setEmail($cadaCliente['email'])
               ->setIsJuridica(false)
               ->setNome($cadaCliente['nome'])
@@ -97,7 +35,8 @@ foreach ($clienteArray as $cadaCliente) {
 
       $cliente = new FABIANO\Cliente\Tipos\TypePessoaJuridica();
       $cliente->setStars($cadaCliente['stars'])
-              ->setId($cadaCliente['id'])
+              ->setId($cadaCliente['ID'])
+              ->setTelefone($cadaCliente['telefone'])
               ->setEmail($cadaCliente['email'])
               ->setIsJuridica(true)
               ->setNomeFantasia($cadaCliente['nomeFantasia'])

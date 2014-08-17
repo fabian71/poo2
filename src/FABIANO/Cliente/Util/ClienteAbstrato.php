@@ -5,7 +5,7 @@ namespace FABIANO\Cliente\Util;
 abstract class ClienteAbstrato
 {
     
-	private $id;
+	private $ID;
 	private $email;
 	private $telefone;
 	private $isJuridica;
@@ -38,9 +38,9 @@ abstract class ClienteAbstrato
 	    return $this->id;
 	}
 
-	public function setId($id)
+	public function setId($ID)
 	{
-	    $this->id = $id;
+	    $this->id = $ID;
 	    return $this;
 	}
 	public function getEmail()

@@ -14,8 +14,7 @@ class Endereco extends \FABIANO\Cliente\Cliente
 		$this->setEnderecoCobranca($enderecoCobranca)
 			 ->setEndereco($endereco)
 			 ->setCidade($cidade)
-			 ->setEstado($estado)
-			 ;
+			 ->setEstado($estado);
 	}
 
 	public function getEndereco()

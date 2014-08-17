@@ -21,7 +21,8 @@ class RotaUrl
 		$removeArray = array_shift($pathArray);
 		
 		$paginas = ['clientes' => '../pages/clientes.php',
-					'lista_clientes'  => '../pages/clientes.php'
+					'lista_clientes'  => '../pages/clientes.php',
+					'fixture'  => '../pages/fixture.php'
 				   ];
 		
 		//carrega o home
