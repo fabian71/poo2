@@ -1,5 +1,12 @@
 <?php
 
+// Configurando o autoload
+if (!(defined('CLASS_DIR'))){
+    define('CLASS_DIR','../src/');
+}
+set_include_path(get_include_path().PATH_SEPARATOR.CLASS_DIR);
+spl_autoload_register();
+
 /* Arary de clientes para ser persistir no banco de dados */
 $clienteArray[] = [
             'email'=>'email@email.com',
